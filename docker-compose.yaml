@@ -1,0 +1,7 @@
+services:
+  ettic:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - 8000:8000
