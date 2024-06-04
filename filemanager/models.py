@@ -7,10 +7,12 @@ class Folder(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=30)
-    path = models.CharField()
+    path = models.CharField(max_length=80)
+    
 
 class File(models.Model):
     id = models.BigAutoField(primary_key=True)
     folder = models.ForeignKey(Folder, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
-    path = models.CharField()
+    path = models.CharField(max_length=80)
+    file = models.FileField(upload_to=folder)

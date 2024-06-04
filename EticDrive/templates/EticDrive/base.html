@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EticDrive</title>
+</head>
+<body>
+    {% block 'nav' %}
+    {% if user.is_authenticated %}
+      <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <h3>Hello, {{ user.username }}!</h3>
+        <button type="submit">logout</button>
+      </form>
+      <br>
+      <a href="{% url 'index' %}">spots</a>
+    {% else %}
+      <a href="{% url 'signup' %}">signup</a>
+      <a href="{% url 'login' %}">login</a>
+    {% endif %}
+    <hr/>
+  {% endblock %}
+
+  {% block content %}
+  {% endblock %}
+
+</body>
+</html>
