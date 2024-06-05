@@ -1,5 +1,5 @@
 services:
-  ettic:
+  eticdrive:
     build: .
     volumes:
       - .:/app

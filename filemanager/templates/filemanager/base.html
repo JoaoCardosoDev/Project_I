@@ -14,7 +14,7 @@
         <button type="submit">logout</button>
       </form>
       <br>
-      <a href="{% url 'index' %}">spots</a>
+      <a href="{% url 'index' %}">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti possimus ex voluptas minima </a>
     {% else %}
       <a href="{% url 'signup' %}">signup</a>
       <a href="{% url 'login' %}">login</a>
@@ -22,8 +22,7 @@
     <hr/>
   {% endblock %}
 
-  {% block content %}
-  {% endblock %}
+  {% block 'content' %} {% endblock %}
 
 </body>
 </html>

@@ -1,9 +1,8 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.views import LogoutView
-from EticDrive.views import Login, Signup
-from filemanager.views import root
+from filemanager.views import create_folder
 
 urlpatterns = [
-    path("", root, name="root")
+    path("", create_folder, name="index")
 ]
