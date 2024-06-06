@@ -7,12 +7,10 @@ class Base(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=30)
     path = models.CharField(max_length=80)
-
-class Root(Base):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 
 class Folder(Base):
-    parent = models.ForeignKey(Root, on_delete=models.CASCADE)
+    parent = models.ForeignKey('Folder', on_delete=models.CASCADE, related_name='folder_children', null=True, blank=True)
 
 class File(Base):
     parent = models.ForeignKey(Folder, on_delete=models.CASCADE)

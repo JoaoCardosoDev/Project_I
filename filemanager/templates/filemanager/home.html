@@ -1,0 +1,32 @@
+{% extends "filemanager/base.html" %}
+
+{% block 'content' %}
+
+<div class="folder-createcard">
+    <h1>Folder</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit">
+      </form>
+</div>
+<hr>
+<div class="file-createcard">
+    <h1>File</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ fileform }}
+        <input type="submit" value="Submit">
+      </form>
+</div>
+<hr>
+    <ul>
+        {% for folder in folders %}
+            <li>{{folder.title}} - {{folder.date}}</li>
+        {% endfor%}
+        {% for file in files %}
+            <li>{{file.title}} - {{file.date}}</li>
+        {% endfor%}
+    </ul>
+
+{% endblock %}

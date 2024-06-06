@@ -2,12 +2,10 @@
 
 {% block 'content' %}
 
-<form>
-
+<form action = "" method = "post">
+    {% csrf_token %}
     {{ form }}
-
-    <input type="submit" name="submit" value="Signup">
-
+    <input type="submit" value=Submit">
 </form>
 
 {% endblock %}
