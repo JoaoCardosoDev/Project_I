@@ -11,3 +11,5 @@ Os modelos ainda estão com falhas graves, ainda tenho que perceber bem se é ne
 Os modelos de momento são File e Folder a fazer inherit de uma base com campos em comum.
 
 Vou continuar a trabalhar nos forms, a seguir vou para o UX com botões para apagar editar etc, e depois trabalhar na UI.
+
+https://github.com/JoaoCardosoDev/Project_I/releases/tag/06-06

@@ -13,10 +13,10 @@
 <hr>
 <div class="file-createcard">
     <h1>File</h1>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ fileform }}
-        <input type="submit" value="Submit">
+        <button type="submit">Upload</button>
       </form>
 </div>
 <hr>

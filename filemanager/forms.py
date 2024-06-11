@@ -2,11 +2,13 @@ from django import forms
 from filemanager.models import Folder, File
 
 class FolderForm(forms.ModelForm):
+    create_folder = forms.BooleanField(widget=forms.HiddenInput, initial=True)
     class Meta:
         model = Folder
-        fields = "__all__"
+        fields = ('title',)
 
 class FileForm(forms.ModelForm):
+    create_file = forms.BooleanField(widget=forms.HiddenInput, initial=True)
     class Meta:
         model = File
-        fields = "__all__"
+        fields = ('title', 'storage')
