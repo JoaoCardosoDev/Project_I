@@ -3,7 +3,6 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 
 # Create your models here.
-
 class Base(models.Model):
     id = models.BigAutoField(primary_key=True)
     date = models.DateTimeField(auto_now_add=True)
@@ -24,12 +23,13 @@ class File(Base):
     def __str__(self):
         return f"{self.title}"
     
-#Delete file when it's model is deleted
+#Delete file when its model is deleted
 
 from django.db.models.signals import post_delete, pre_save
 from django.dispatch import receiver
 from django.db import models
  
+
 """ Whenever ANY model is deleted, if it has a file field on it, delete the associated file too"""
 @receiver(post_delete)
 def delete_files_when_row_deleted_from_db(sender, instance, **kwargs):

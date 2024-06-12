@@ -21,11 +21,12 @@
 </div>
 <hr>
     <ul>
+        <!-- tentar colocar o csrf_token no webcomponent -->
         {% for folder in folders %}
-            <li>{{folder.title}} - {{folder.date}}</li>
+            <li>{{folder.title}} - {{folder.date}} <a href="/delete/{{folder.pk}}">Delete</a><a href="/edit/{{folder.pk}}">Edit</a></li>
         {% endfor%}
         {% for file in files %}
-            <li>{{file.title}} - {{file.date}}</li>
+            <li>{{file.title}} - {{file.date}} <a href="/delete/{{file.pk}}">Delete</a><a href="/edit/{{file.pk}}">Edit</a><a href="/download/{{file.pk}}">Download</a></li>
         {% endfor%}
     </ul>
 

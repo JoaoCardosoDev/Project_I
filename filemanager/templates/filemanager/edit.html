@@ -1,0 +1,27 @@
+{% extends "filemanager/base.html" %}
+
+{% block 'content' %}
+
+<h1>EDITING</h1>
+
+<div class="folder-createcard">
+    <h1></h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit">
+      </form>
+</div>
+<!-- <hr>
+<div class="file-createcard">
+    <h1>File</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ file_form }}
+        <button type="submit">Upload</button>
+      </form>
+</div> -->
+
+
+
+{% endblock %}
