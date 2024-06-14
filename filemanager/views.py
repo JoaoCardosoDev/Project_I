@@ -97,6 +97,7 @@ def editInstance(request, id=None):
 
 from django.core.files.storage import FileSystemStorage
 
+@login_required(login_url="/login")
 def download(request, id=None):
     file = File.objects.get(pk=id)
     storage = FileSystemStorage()

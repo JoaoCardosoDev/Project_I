@@ -23,6 +23,10 @@ class File(Base):
     def __str__(self):
         return f"{self.title}"
     
+    def save(self, *args, **kwargs):
+        self.storage.name = f"{self.title}"
+        super().save(*args, **kwargs)
+    
 #Delete file when its model is deleted
 
 from django.db.models.signals import post_delete, pre_save
