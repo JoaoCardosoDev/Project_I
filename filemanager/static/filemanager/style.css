@@ -1,0 +1,18 @@
+:root {
+    --color-primary: #F45B04;
+    --color-secondary: #011464;
+    --color-terciary: #336CC4;
+    --color-text: #FFFFFF;
+    --font-family: system-ui, sans-serif;
+    --font-size: 60px;
+    --speed: 0.3s;
+    
+    --galery-width: 200px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: var(--color-text);
+}

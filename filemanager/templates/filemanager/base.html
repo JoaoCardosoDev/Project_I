@@ -4,8 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EticDrive</title>
-</head>
-<body>
+    {% load static %}
+    <style>
+      body {
+          background-image: url("{% static 'filemanager/Hero.jpg' %}");
+          background-size: cover;
+          background-position: center;
+          margin: 0;
+      }
+  </style>
+
+  </head>
+  <body>
+    <script src="{% static 'filemanager/webcomponents.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'filemanager/style.css' %}">
+    <login-card></login-card>
     {% block 'nav' %}
     {% if user.is_authenticated %}
       <form method="post" action="{% url 'logout' %}">
@@ -14,7 +27,6 @@
         <button type="submit">logout</button>
       </form>
       <br>
-      <a href="{% url 'index' %}">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti possimus ex voluptas minima </a>
     {% else %}
       <a href="{% url 'signup' %}">signup</a>
       <a href="{% url 'login' %}">login</a>
