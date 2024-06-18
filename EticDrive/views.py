@@ -1,9 +1,11 @@
 from django.views.generic import FormView
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.contrib.auth.views import LoginView
-from django.contrib.auth import login
+from django.contrib.auth import login, authenticate, logout
+
+from EticDrive.forms import LoginForm
 
 class SignupView(FormView):
     template_name = "auth/signup.html"
@@ -22,8 +24,27 @@ class SignupView(FormView):
             return redirect('/')
         return super(SignupView, self).get(request, *args, **kwargs)
 
-class Login(LoginView):
-    template_name="auth/login.html"
-    fields= "__all__"
-    redirect_authenticates_user = True
-    sucess_url = ""
+# class Login(LoginView):
+#     template_name="auth/login.html"
+#     fields= "__all__"
+#     redirect_authenticates_user = True
+#     sucess_url = ""
+
+def Login(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            print("form is valid")
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('home')
+    else:
+        form = LoginForm()
+    return render(request, 'filemanager/base.html', {'form': form})
+
+def LogOut(request):
+    logout(request)
+    return redirect('root')

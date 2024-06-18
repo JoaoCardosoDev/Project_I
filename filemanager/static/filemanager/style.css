@@ -1,9 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 :root {
     --color-primary: #F45B04;
     --color-secondary: #011464;
     --color-terciary: #336CC4;
     --color-text: #FFFFFF;
-    --font-family: system-ui, sans-serif;
+    --font-primary: 'Lato';
+    --font-secondary: 'Roboto';
     --font-size: 60px;
     --speed: 0.3s;
     
@@ -15,4 +19,10 @@
     padding: 0;
     box-sizing: border-box;
     color: var(--color-text);
+}
+
+body {
+    width: 100%;
+    height: 100dvh;
+    
 }

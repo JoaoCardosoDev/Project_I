@@ -17,13 +17,12 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from django.contrib.auth.views import LogoutView
-from EticDrive.views import Login, SignupView
+from EticDrive.views import LogOut, Login, SignupView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("filemanager.urls")),
-    path("login/", Login.as_view(), name="login"),
-    path('logout/', LogoutView.as_view(), name="logout"),
+    path("login/", Login, name="login"),
+    path('logout/', LogOut, name="logout"),
     path('signup/', SignupView.as_view(), name='signup')
 ]

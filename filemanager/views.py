@@ -11,7 +11,7 @@ from django.core.files.storage import FileSystemStorage
 def root(request):
     if request.user.is_authenticated:
         return redirect('/home/')
-    return render(request, 'filemanager/index.html')
+    return render(request, 'filemanager/root.html')
 
 @login_required(login_url="/login")
 def home(request):

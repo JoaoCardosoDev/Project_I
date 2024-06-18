@@ -4,33 +4,48 @@ loginCard.innerHTML = `
 
 .container {
     width: 480px;
-    height: 100%;
     display: flex;
     flex-direction: column;
     background: rgb(1,20,100);
     background: linear-gradient(150deg, rgba(1,20,100,1) 30%, rgba(244,91,4,1) 93%);
-    justify-content: center;
     align-items: center;
     border-radius: 8px;
     margin: 24px 16px;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+    width: 65%;
+    align-items: center;
+}
+
+label {
+    margin-right: auto;
+}
 input {
-    width: 75%;
-    border: 60px;
+    width: 97%;
+    height: 32px;
+    margin-bottom: 16px;
 }
 
 button {
-    width: 75%;
+    width: 100%;
+    height: 32px;
+    border: 0;
     background-color: var(--color-terciary);
+    margin-top: 16px;
+    font-color: var(--color-text)
 }
 
 h1 {
     font-size: 56px;
+    font-family: var(--font-primary)
 }
 
 h2 {
     font-size: 40px;
+    font-family: var(--font-secondary)
 
 }
 
@@ -48,13 +63,15 @@ h2 {
     <p>Don't have an account yet? <a href="${window.location.origin}/signup">Click here</a></p>
 
 
-    <label>User</label>
-    <input type="text">
+    <form method="post" action="${window.location.origin}/login/">
+        <label>User</label>
+        <input type="text" name="username">
 
-    <label>Password</label>
-    <input type="text">
+        <label>Password</label>
+        <input type="text" name="password">
 
-    <button type="submit">Log in</button>
+        <button type="submit">Log in</button>
+    </form>
 
     <a href="" id="passreset">Forgot your password?</a>
 
@@ -64,6 +81,15 @@ h2 {
 
 </div>
 `
+function getCsrfToken() {
+    const cookieString = document.cookie;
+    // Matches any characters that are not ;
+    const csrfTokenPart = cookieString.match(/csrftoken=([^;]*)/);
+    if (csrfTokenPart) {
+      return csrfTokenPart[1];
+    }
+    return null;
+  }
 
 class LoginCard extends HTMLElement {
 
@@ -76,6 +102,25 @@ class LoginCard extends HTMLElement {
         this.shadowRoot = this.attachShadow({ mode: 'closed' });
         this.shadowRoot.appendChild(loginCard.content.cloneNode(true));
 
+    }
+
+    
+    connectedCallback() {
+        const form = this.shadowRoot.querySelector('form');
+        console.log("form")
+        const csrfToken = getCsrfToken();
+        console.log(csrfToken)
+        if (csrfToken) {
+            const form = this.shadowRoot.querySelector('form');
+    
+            if (csrfToken) {
+                const csrfInput = document.createElement('input');
+                csrfInput.type = 'hidden';
+                csrfInput.name = 'csrfmiddlewaretoken';
+                csrfInput.value = csrfToken;
+                form.insertBefore(csrfInput, form.firstChild);
+            }
+        }
     }
 }
 customElements.define('login-card', LoginCard);

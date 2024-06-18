@@ -1,0 +1,30 @@
+{% extends "filemanager/base.html" %}
+
+{% load static %}
+
+{% block 'content' %}
+<style>
+    html {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+        background-image: url("{% static 'filemanager/Hero.jpg' %}");
+        background-size: cover;
+        background-position: center;
+        height: 100vh;
+        width: 100vw;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+    
+</style>
+
+<script src="{% static 'filemanager/webcomponents.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'filemanager/style.css' %}">
+    <login-card form="{{ form|safe }}" token="{% csrf_token %}"></login-card>
+
+{% endblock %}
