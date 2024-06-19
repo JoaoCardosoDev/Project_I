@@ -4,6 +4,7 @@ loginCard.innerHTML = `
 
 .container {
     width: 480px;
+    height: 94.5%;
     display: flex;
     flex-direction: column;
     background: rgb(1,20,100);
@@ -18,6 +19,7 @@ form {
     flex-direction: column;
     width: 65%;
     align-items: center;
+    margin-top: 16px;
 }
 
 label {
@@ -27,26 +29,41 @@ input {
     width: 97%;
     height: 32px;
     margin-bottom: 16px;
+    font-size: 16px;
+    font-family: var(--font-secondary);
+    padding-left: 4px;
 }
 
+a {
+    text-decoration: none;
+    color: var(--color-text);
+}
 button {
     width: 100%;
     height: 32px;
     border: 0;
     background-color: var(--color-terciary);
     margin-top: 16px;
-    font-color: var(--color-text)
+    color: var(--color-text);
+    font-weight: 700;
+    cursor: pointer;
 }
 
 h1 {
     font-size: 56px;
     font-family: var(--font-primary)
+    font-weight: bolder;
 }
 
 h2 {
     font-size: 40px;
-    font-family: var(--font-secondary)
+    font-family: var(--font-secondary);
+    font-weight: 500;
+}
 
+img {
+    width: 50%;
+    margin: 16px;
 }
 
 #passreset {
@@ -68,7 +85,7 @@ h2 {
         <input type="text" name="username">
 
         <label>Password</label>
-        <input type="text" name="password">
+        <input type="password" name="password">
 
         <button type="submit">Log in</button>
     </form>
@@ -124,3 +141,5 @@ class LoginCard extends HTMLElement {
     }
 }
 customElements.define('login-card', LoginCard);
+
+

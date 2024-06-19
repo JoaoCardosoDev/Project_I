@@ -24,12 +24,6 @@ class SignupView(FormView):
             return redirect('/')
         return super(SignupView, self).get(request, *args, **kwargs)
 
-# class Login(LoginView):
-#     template_name="auth/login.html"
-#     fields= "__all__"
-#     redirect_authenticates_user = True
-#     sucess_url = ""
-
 def Login(request):
     if request.method == 'POST':
         form = LoginForm(request.POST)

@@ -6,15 +6,18 @@
     --color-secondary: #011464;
     --color-terciary: #336CC4;
     --color-text: #FFFFFF;
+    --color-text-secondary: #000000;
     --font-primary: 'Lato';
     --font-secondary: 'Roboto';
     --font-size: 60px;
     --speed: 0.3s;
-    
+
     --galery-width: 200px;
 }
 
 * {
+    font-family: var(--font-secondary);
+    
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -24,5 +27,84 @@
 body {
     width: 100%;
     height: 100dvh;
-    
+    display: flex;
+    flex-direction: row;
+}
+
+.homeNav {
+    width: 254px;
+    background-color: #FFE0CF;
+    height: 94.5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.usercard {
+    justify-content: space-around;
+}
+
+h1 {
+    margin-top: 16px;
+}
+
+.buttonCard {
+    display: inline-block;
+}
+button {
+    width: 66%;
+    height: 32px;
+}
+
+.main{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+/* NAV UTIL BAR */
+.navUtilCard {
+    margin: 8px;
+    padding-top: 8px;
+    display: flex;
+    flex-direction: row;
+    gap: 18px;
+    justify-content: space-evenly;
+}
+
+.navUtilCard p{
+    color: var(--color-text-secondary);
+    padding-top: 8px;
+
+}
+.navUtilCard span{
+    display: flex;
+    flex-direction: row;
+    padding-top: 8px;
+    gap: 8px;
+}
+
+/* WORKSPACE */
+.workdspaceCard {
+    background-color: #FFE0CF;
+    width: 90%;
+    height: 60%;
+    margin: 32px;
+    align-content: center;
+}
+.workdspaceCard p {
+    color: var(--color-text-secondary);
+}
+.workdspaceCard span {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.folderWrapper {
+    background-color: #FFFFFF;
+    width: 90%;
+    height: 88%;
+    margin: 16px;
 }
