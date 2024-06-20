@@ -31,30 +31,106 @@ body {
     flex-direction: row;
 }
 
+.brightness {
+    position: absolute;
+    z-index: -1;
+    background-color: #00000067;
+    width: 100%;
+    height: 100%;
+}
+
 .homeNav {
-    width: 254px;
+    width: 294px;
     background-color: #FFE0CF;
     height: 94.5%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 32px;
+    padding: 16px;
+    align-items: center;
+    border-radius: 8px;
+}
+
+.homeNav a{
+    color: var(--color-primary);
 }
 
 .usercard {
     justify-content: space-around;
+    margin: 8px;
+    color: #000000;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+    width: 100%;
+    display: flex;
+    padding: 4px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.usercard p{
+    color: #000000;
+}
+
+hr {
+    background-color: #F45B04;
+    height: 2px;
+    width: 100%;
 }
 
 h1 {
-    margin-top: 16px;
+    font-family: var(--font-primary);
+    color: var(--color-primary);
+    font-weight: bolder;
 }
 
+
+
 .buttonCard {
-    display: inline-block;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin: 8px;
 }
+
+.primaryButton {
+    background-color: var(--color-primary);
+}
+.secondaryButton {
+    background-color: #FFFFFF;
+    stroke: var(--color-primary);
+    color: var(--color-text-secondary);
+}
+
 button {
-    width: 66%;
+    width: 100%;
     height: 32px;
+    border-radius: 8px;
+    border: none;
+    padding: 0px 4px;
 }
+
+.favFolders{
+    background-color: #FFFFFF;
+    margin-top: 8px;
+    border-radius: 8px;
+    padding: 8px;
+}
+
+.favFolders h2 {
+    color: var(--color-text-secondary);
+    font-family: var(--font-secondary);
+    text-align: center;
+}
+
+.favFolders button{
+    margin-top: 8px;
+    background-color: grey;
+}
+
+
 
 .main{
     display: flex;
@@ -64,6 +140,7 @@ button {
 }
 
 /* NAV UTIL BAR */
+
 .navUtilCard {
     margin: 8px;
     padding-top: 8px;
@@ -83,6 +160,19 @@ button {
     flex-direction: row;
     padding-top: 8px;
     gap: 8px;
+}
+
+.modifiedCard {
+    background-color: #FFE0CF;
+    padding: 8px;
+    width: 50%;
+}
+
+.modifiedCard button {
+    background-color: grey;
+    color: var(--color-text-secondary);
+    width: 64px;
+    text-overflow: ellipsis;
 }
 
 /* WORKSPACE */
@@ -107,4 +197,76 @@ button {
     width: 90%;
     height: 88%;
     margin: 16px;
+}
+
+.folderWrapper li{
+    color: var(--color-text-secondary);
+    list-style-type: none;
+    margin: 4px;
+}
+
+/* OVERLAY */
+
+.overlay {
+    position: absolute;
+    display: none;
+    inset: 0;
+    background-color: #00000096;
+}
+
+.createFolder {
+    display: none;
+    flex-direction: column;
+    background-color: #FFFFFF;
+    border: var(--color-primary);
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 8px;
+    max-width: 40%;
+    align-self: center;
+    align-items: center;
+    padding: 8px;
+    justify-content: center;
+    margin: auto;
+    gap: 4px;
+}
+
+.createFolder Form {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.createFolder Button, Label, input {
+    color: var(--color-text-secondary);
+    margin: 4px;
+}
+
+
+.fileCreatecard {
+    display: none;
+    flex-direction: column;
+    background-color: #FFFFFF;
+    border: var(--color-primary);
+    border-style: solid;
+    border-width: 3px;
+    border-radius: 8px;
+    max-width: 45%;
+    align-self: center;
+    align-items: center;
+    padding: 8px;
+    justify-content: center;
+    margin: auto;
+    gap: 4px;
+}
+.fileCreatecard Form {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.fileCreatecard Button, Label {
+    color: var(--color-text-secondary);
+    margin: 4px;
 }

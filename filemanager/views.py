@@ -105,3 +105,19 @@ def download(request, id=None):
     response = FileResponse(open(path, 'rb'), as_attachment=True, filename=file.title)
     response['Content-Disposition'] = f'attachment; filename="{file.title}"'
     return response
+
+@login_required(login_url="/login")
+def folderView(request, id=None):
+    folder = get_object_or_404(Folder, pk=id)
+    folderChildren = Folder.objects.filter(parent=folder)
+    files = File.objects.filter(parent=folder)
+    folder_form = FolderForm()
+    file_form = FileForm()
+    
+    context = {
+        'form': folder_form,
+        'fileform': file_form,
+        'folders': folderChildren,
+        'files': files
+    }
+    return render(request, 'filemanager/home.html', context)
