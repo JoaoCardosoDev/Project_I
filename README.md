@@ -1,3 +1,9 @@
+# Entrega 21-06 - Projecto_I
+
+##  *Entrega das vistas Backoffice e Frontoffice*
+
+Projeto em modo alfa com as funcionalidades base e maioria das feats, aind é necessário restruturação do UI da home page.
+
 # Entrega 14-06 - Projecto_I
 
 ## *Estrutura de dados*
