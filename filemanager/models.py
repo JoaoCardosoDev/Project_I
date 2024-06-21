@@ -10,13 +10,17 @@ class Base(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=30)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    lastmodified = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        lastmodified = models.DateTimeField(auto_now_add=True)
+        super().save(*args, **kwargs)
 
 class Folder(Base):
     parent = models.ForeignKey('Folder', on_delete=models.CASCADE, related_name='folder_children', null=True, blank=True)
-    
+    favorite = models.BooleanField(default=False)
     def __str__(self):
         return f"{self.title}"
-
 
 class File(Base):
     parent = models.ForeignKey(Folder, on_delete=models.CASCADE, null=True, blank=True)

@@ -33,19 +33,34 @@ def home(request):
                 file.user = request.user  
                 file.save()  
                 return HttpResponseRedirect(reverse('home'))
-            # else:
-            #     print(form.errors)  # Print errors for debugging
-            #     folder_form = FolderForm()
-            #     file_form = form  # Reassign the form with errors
-
+            else:
+                folder_form = FolderForm()
+                file_form = form  # Reassign the form with errors
+    
     folders = Folder.objects.filter(user=request.user)
     files = File.objects.filter(user=request.user)
+    favfolders = Folder.objects.filter(user=request.user, favorite=True)
+    lastmod = Base.objects.filter(user=request.user).order_by('-lastmodified')
+    breadcrum = "Workspace"
 
+
+    if request.method == 'POST' and 'search_query' in request.POST:
+        search_query = request.POST.get('search_query')
+        search_result = Base.objects.filter(user=request.user, title__contains=search_query)
+        folders = search_result
+        files = ""
+        breadcrum = f"Search result: {search_query}"
+
+    
+    
     context = {
         'form': folder_form,
         'fileform': file_form,
         'folders': folders,
-        'files': files
+        'files': files,
+        'favfolders': favfolders,
+        'Lastmod': lastmod,
+        'breadcrum': breadcrum
     }
     return render(request, 'filemanager/home.html', context)
 
@@ -108,16 +123,20 @@ def download(request, id=None):
 
 @login_required(login_url="/login")
 def folderView(request, id=None):
+
     folder = get_object_or_404(Folder, pk=id)
     folderChildren = Folder.objects.filter(parent=folder)
     files = File.objects.filter(parent=folder)
     folder_form = FolderForm()
     file_form = FileForm()
-    
+    favfolders = Folder.objects.filter(user=request.user, favorite=True)
+
     context = {
         'form': folder_form,
         'fileform': file_form,
         'folders': folderChildren,
-        'files': files
+        'files': files,
+        'favfolders': favfolders
     }
+
     return render(request, 'filemanager/home.html', context)

@@ -20,6 +20,8 @@ window.onload = () => {
 
     console.log(newFolder)
     overlay.addEventListener("click", function (e) {
+        if (e.target !== this)
+            return;
         overlay.style.display = "none";
         crtFile.style.display = "none"
         crtFolder.style.display = "none"
