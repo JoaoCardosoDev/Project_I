@@ -4,6 +4,8 @@
 
 Projeto em modo alfa com as funcionalidades base e maioria das feats, aind é necessário restruturação do UI da home page.
 
+Tag: https://github.com/JoaoCardosoDev/Project_I/releases/tag/21-06
+
 # Entrega 14-06 - Projecto_I
 
 ## *Estrutura de dados*

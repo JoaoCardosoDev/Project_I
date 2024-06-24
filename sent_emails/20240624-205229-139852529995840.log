@@ -1,0 +1,25 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Subject: Password reset on localhost:8000
+From: webmaster@localhost
+To: joao_cardoso@eticalgarve.com
+Date: Mon, 24 Jun 2024 19:52:29 -0000
+Message-ID: <171925874992.19407.15604635822726018611@0363076f42ac>
+
+
+You're receiving this email because you requested a password reset for your user account at localhost:8000.
+
+Please go to the following page and choose a new password:
+
+http://localhost:8000/accounts/reset/Mg/c958nh-49c9629d635ff29528e759ed328c5f14/
+
+Your username, in case you’ve forgotten: testuser
+
+Thanks for using our site!
+
+The localhost:8000 team
+
+
+
+-------------------------------------------------------------------------------

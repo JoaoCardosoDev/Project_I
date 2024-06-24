@@ -41,7 +41,7 @@ def home(request):
     files = File.objects.filter(user=request.user)
     favfolders = Folder.objects.filter(user=request.user, favorite=True)
     lastmod = Base.objects.filter(user=request.user).order_by('-lastmodified')
-    breadcrum = "Workspace"
+    breadcrumb = "Workspace"
 
 
     if request.method == 'POST' and 'search_query' in request.POST:
@@ -49,7 +49,7 @@ def home(request):
         search_result = Base.objects.filter(user=request.user, title__contains=search_query)
         folders = search_result
         files = ""
-        breadcrum = f"Search result: {search_query}"
+        breadcrumb = f"Search result: {search_query}"
 
     
     
@@ -60,7 +60,7 @@ def home(request):
         'files': files,
         'favfolders': favfolders,
         'Lastmod': lastmod,
-        'breadcrum': breadcrum
+        'breadcrumb': breadcrumb
     }
     return render(request, 'filemanager/home.html', context)
 
@@ -130,13 +130,24 @@ def folderView(request, id=None):
     folder_form = FolderForm()
     file_form = FileForm()
     favfolders = Folder.objects.filter(user=request.user, favorite=True)
+    
+    def get_breadcrumb(folder):
+        breadcrumb = []
+        current_folder = folder
+        while current_folder is not None:
+            breadcrumb.append('<a href="/folder/${currentfolder.pk}" ${current_folder.title}</a>')
+            current_folder = current_folder.parent
+        return breadcrumb[::1]
+    
+    breadcrumb = get_breadcrumb(folder)
 
     context = {
         'form': folder_form,
         'fileform': file_form,
         'folders': folderChildren,
         'files': files,
-        'favfolders': favfolders
+        'favfolders': favfolders,
+        'breadcrumb': breadcrumb
     }
 
     return render(request, 'filemanager/home.html', context)

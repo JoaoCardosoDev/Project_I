@@ -184,6 +184,9 @@ button {
 .workdspaceCard p {
     color: var(--color-text-secondary);
 }
+.workdspaceCard a {
+    color: var(--color-text-secondary);
+}
 .workdspaceCard span {
     display: flex;
     flex-direction: row;

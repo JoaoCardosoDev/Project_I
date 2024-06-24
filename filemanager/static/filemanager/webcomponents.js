@@ -90,7 +90,7 @@ img {
         <button type="submit">Log in</button>
     </form>
 
-    <a href="" id="passreset">Forgot your password?</a>
+    <a href="${window.location.origin}/accounts/password_reset/" id="passreset">Forgot your password?</a>
 
     <img src="/static/filemanager/logo_branco.png" alt="etic algarve logo">
 
