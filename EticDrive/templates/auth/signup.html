@@ -2,12 +2,23 @@
 
 {% block 'content' %}
 
-<form>
+<div class="container">
 
-    {{ form }}
+    <h1>ETIC_DRIVE</h1>
+    
+    <h2>Sign up</h2>
 
-    <input type="submit" name="submit" value="Signup">
+    <form action = "" method = "post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value=Submit">
+    </form>
 
-</form>
+
+    <img src="/static/filemanager/logo_branco.png" alt="etic algarve logo">
+
+    <p><a href="">Terms of service</a> | <a href="">Privacy Policy</a></p>
+
+</div>
 
 {{% endblock %}}
