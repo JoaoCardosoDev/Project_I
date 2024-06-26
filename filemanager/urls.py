@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.views import LogoutView
-from filemanager.views import create_folder, download, folderView, home, deleteInstance, editInstance, root
+from filemanager.views import download, folderView, home, deleteInstance, editInstance, root
 
 urlpatterns = [
     path("", root, name="root"),

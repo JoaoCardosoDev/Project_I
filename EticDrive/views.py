@@ -5,12 +5,14 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.views import LoginView
 from django.contrib.auth import login, authenticate, logout
 
-from EticDrive.forms import LoginForm
+from EticDrive.forms import LoginForm, NormalUserForm
+from EticDrive.models import NormalUser
 
 class SignupView(FormView):
     template_name = "auth/signup.html"
-    form_class = UserCreationForm
-    success_url = reverse_lazy('login')
+    form_class = NormalUserForm
+    model = NormalUser
+    success_url = '/'
     redirect_authenticated_user = True
 
     def form_valid(self, form):

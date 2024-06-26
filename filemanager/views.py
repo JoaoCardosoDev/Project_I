@@ -6,6 +6,8 @@ from filemanager.forms import FolderForm, FileForm
 from filemanager.models import Base, File, Folder
 from django.http import FileResponse
 from django.core.files.storage import FileSystemStorage
+from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.contrib import messages
 # Create your views here.
 
 def root(request):
@@ -15,6 +17,9 @@ def root(request):
 
 @login_required(login_url="/login")
 def home(request):
+    if request.user.is_staff:
+        return redirect('admin:index')
+    
     folder_form = FolderForm()
     file_form = FileForm()
 
@@ -26,16 +31,28 @@ def home(request):
                 folder.user = request.user  
                 folder.save()  
                 return HttpResponseRedirect(reverse('home'))
+            
         if 'create_file' in request.POST:
-            form = FileForm(request.POST, request.FILES)
-            if form.is_valid():
-                file = form.save(commit=False)  
-                file.user = request.user  
-                file.save()  
-                return HttpResponseRedirect(reverse('home'))
+            if 'file' in request.FILES:
+                file_obj = request.FILES['file']
+                if file_obj.size > 1048576:  # 1MB
+                    messages.error(request, "File size exceeds 1MB")
+                    folder_form = FolderForm()
+                    file_form = FileForm()  # Reassign the form with errors
+                else:
+                    form = FileForm(request.POST, request.FILES)
+                    if form.is_valid():
+                        file = form.save(commit=False)  
+                        file.user = request.user  
+                        file.save()  
+                        return HttpResponseRedirect(reverse('home'))
+                    else:
+                        folder_form = FolderForm()
+                        file_form = form  # Reassign the form with errors
             else:
+                messages.error(request, "No file uploaded")
                 folder_form = FolderForm()
-                file_form = form  # Reassign the form with errors
+                file_form = FileForm()  # Reassign the form with errors
     
     folders = Folder.objects.filter(user=request.user)
     files = File.objects.filter(user=request.user)
@@ -64,19 +81,6 @@ def home(request):
     }
     return render(request, 'filemanager/home.html', context)
 
-
-def create_folder(request):
-    if request.method == 'POST':
-        form = FolderForm(request.POST)
-        print(form)
-        if form.is_valid():
-            folder = form.save(commit=False)
-            folder.save()
-            return HttpResponseRedirect(reverse('index'))
-
-
-    context = {'form': FolderForm()}
-    return render(request, 'filemanager/index.html', context)
 
 @login_required(login_url="/login")
 def deleteInstance(request, id=None):
@@ -124,6 +128,9 @@ def download(request, id=None):
 @login_required(login_url="/login")
 def folderView(request, id=None):
 
+    if request.user.is_staff:
+        return redirect('admin:index')
+    
     folder = get_object_or_404(Folder, pk=id)
     folderChildren = Folder.objects.filter(parent=folder)
     files = File.objects.filter(parent=folder)
@@ -131,15 +138,15 @@ def folderView(request, id=None):
     file_form = FileForm()
     favfolders = Folder.objects.filter(user=request.user, favorite=True)
     
-    def get_breadcrumb(folder):
+    def get_breadcrumb(request, folder):
         breadcrumb = []
         current_folder = folder
         while current_folder is not None:
-            breadcrumb.append('<a href="/folder/${currentfolder.pk}" ${current_folder.title}</a>')
+            breadcrumb.append({'url': reverse("folderView", args=[current_folder.pk]), 'title': current_folder.title})
             current_folder = current_folder.parent
-        return breadcrumb[::1]
+        return breadcrumb[::-1]
     
-    breadcrumb = get_breadcrumb(folder)
+    breadcrumb = get_breadcrumb(request, folder)
 
     context = {
         'form': folder_form,

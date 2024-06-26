@@ -50,6 +50,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'django.contrib.messages.middleware.MessageMiddleware'
 ]
 
 ROOT_URLCONF = "EticDrive.urls"
@@ -134,3 +135,5 @@ MEDIA_URL = '/media/'
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 
 EMAIL_FILE_PATH = BASE_DIR / "sent_emails"
+
+AUTH_USER_MODEL = 'EticDrive.NormalUser'

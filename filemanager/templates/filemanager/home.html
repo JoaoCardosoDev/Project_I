@@ -65,7 +65,10 @@
             {% if breadcrumb == "Workspace"%}
                 <p>Workspace</p>
             {% else %}
-                <p>{{ breadcrumb|join:' > ' }}</p>
+                {% for item in breadcrumb %}
+                    <a href="{{ item.url }}">{{ item.title }}</a>
+                    {% if not forloop.last %} <p>></p> {% endif %}
+                {% endfor %}
             {% endif %}
         </span>
         <div class="folderWrapper">
@@ -154,6 +157,7 @@
                 {{ fileform }}
                 <button type="submit">Upload</button>
               </form>
+            </form>
         </div>
     </div>
 </div>
