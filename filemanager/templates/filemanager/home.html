@@ -35,6 +35,7 @@
             {% endfor %}
         </ul>
     </div>
+    <p>Quota:{{ quota }}MB</p>
 
 </div>
 <div class="main">
@@ -62,8 +63,8 @@
     
     <div class="workdspaceCard">
         <span>
-            {% if breadcrumb == "Workspace"%}
-                <p>Workspace</p>
+            {% if "Workspace" in breadcrumb or "Search result" in breadcrumb %}
+                <p>{{ breadcrumb }}</p>
             {% else %}
                 {% for item in breadcrumb %}
                     <a href="{{ item.url }}">{{ item.title }}</a>

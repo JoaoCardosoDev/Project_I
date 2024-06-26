@@ -2,7 +2,8 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from django.conf import settings
-
+import mimetypes
+import os
 
 # Create your models here.
 class Base(models.Model):
@@ -26,11 +27,16 @@ class File(Base):
     parent = models.ForeignKey(Folder, on_delete=models.CASCADE, null=True, blank=True)
     storage = models.FileField()
 
-    def __str__(self):
-        return f"{self.title}"
-    
     def save(self, *args, **kwargs):
-        self.storage.name = f"{self.title}"
+        file_obj = self.storage
+        file_name, file_extension = os.path.splitext(file_obj.name)
+        file_type, _ = mimetypes.guess_type(file_obj.name)
+        if file_type:
+            file_type = file_type.split('/')[-1]  # get the file type (e.g. 'pdf', 'jpg', etc.)
+        else:
+            file_type = ''  # default to empty string if file type cannot be guessed
+
+        self.storage.name = f"{self.title}.{file_type}"
         super().save(*args, **kwargs)
     
 #Delete file when its model is deleted

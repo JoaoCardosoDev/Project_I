@@ -20,6 +20,7 @@ def home(request):
     if request.user.is_staff:
         return redirect('admin:index')
     
+    breadcrumb = "Workspace"
     folder_form = FolderForm()
     file_form = FileForm()
 
@@ -33,43 +34,45 @@ def home(request):
                 return HttpResponseRedirect(reverse('home'))
             
         if 'create_file' in request.POST:
-            if 'file' in request.FILES:
-                file_obj = request.FILES['file']
-                if file_obj.size > 1048576:  # 1MB
-                    messages.error(request, "File size exceeds 1MB")
-                    folder_form = FolderForm()
-                    file_form = FileForm()  # Reassign the form with errors
-                else:
-                    form = FileForm(request.POST, request.FILES)
-                    if form.is_valid():
-                        file = form.save(commit=False)  
-                        file.user = request.user  
-                        file.save()  
-                        return HttpResponseRedirect(reverse('home'))
-                    else:
-                        folder_form = FolderForm()
-                        file_form = form  # Reassign the form with errors
-            else:
-                messages.error(request, "No file uploaded")
+
+            file_obj = request.FILES['storage']
+            
+            if file_obj.size < (request.user.max_quota - request.user.quota_counter):
+
+                # messages.error(request, "File size exceeds 1MB")
                 folder_form = FolderForm()
-                file_form = FileForm()  # Reassign the form with errors
+                file_form = FileForm()
+            else:
+                form = FileForm(request.POST, request.FILES)
+                if form.is_valid():
+                    file = form.save(commit=False)  
+                    file.user = request.user  
+                    file.save()
+                    request.user.quota_counter += file_obj.size
+                    request.user.save()
+                    return HttpResponseRedirect(reverse('home'))
+                else:
+                    folder_form = FolderForm()
+                    file_form = form
+
+        if 'search_query' in request.POST:
+            search_query = request.POST.get('search_query')
+            search_result = Base.objects.filter(user=request.user, title__contains=search_query)
+            folders = search_result
+            files = ""
+            breadcrumb = f"Search result: {search_query}"
+        
+        else:
+            messages.error(request, "No file uploaded")
+            folder_form = FolderForm()
+            file_form = FileForm()
     
-    folders = Folder.objects.filter(user=request.user)
+    folders = Folder.objects.filter(user=request.user, parent = None)
     files = File.objects.filter(user=request.user)
     favfolders = Folder.objects.filter(user=request.user, favorite=True)
     lastmod = Base.objects.filter(user=request.user).order_by('-lastmodified')
-    breadcrumb = "Workspace"
+    quota_mb = format(request.user.quota_counter / (1024 * 1024), '.2f')
 
-
-    if request.method == 'POST' and 'search_query' in request.POST:
-        search_query = request.POST.get('search_query')
-        search_result = Base.objects.filter(user=request.user, title__contains=search_query)
-        folders = search_result
-        files = ""
-        breadcrumb = f"Search result: {search_query}"
-
-    
-    
     context = {
         'form': folder_form,
         'fileform': file_form,
@@ -77,7 +80,8 @@ def home(request):
         'files': files,
         'favfolders': favfolders,
         'Lastmod': lastmod,
-        'breadcrumb': breadcrumb
+        'breadcrumb': breadcrumb,
+        'quota': quota_mb
     }
     return render(request, 'filemanager/home.html', context)
 
@@ -86,11 +90,14 @@ def home(request):
 def deleteInstance(request, id=None):
     instance = get_object_or_404(Base, pk=id)
     if request.user == instance.user:
+        request.user.quota_counter -= instance.file.size
+        request.user.save()
         instance.delete()
     return HttpResponseRedirect(reverse('home'))
 
 @login_required(login_url="/login")
 def editInstance(request, id=None):
+    instance = get_object_or_404(Base, pk=id)
     if request.user == instance.user:
         for model in [Folder, File]:
             try:
@@ -113,8 +120,6 @@ def editInstance(request, id=None):
 
     return render(request, 'filemanager/edit.html', {'form': form})
 
-
-from django.core.files.storage import FileSystemStorage
 
 @login_required(login_url="/login")
 def download(request, id=None):
