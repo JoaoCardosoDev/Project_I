@@ -1,3 +1,9 @@
+# Entrega 26-06 - Projecto_I
+
+## Entrega da versão beta da aplicação
+
+Tag: https://github.com/JoaoCardosoDev/Project_I/releases/tag/26-06
+
 # Entrega 21-06 - Projecto_I
 
 ##  *Entrega das vistas Backoffice e Frontoffice*

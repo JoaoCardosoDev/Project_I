@@ -1,13 +1,10 @@
 from django.contrib import admin
 
+from EticDrive.models import NormalUser
 from filemanager.models import File, Folder
 
 # Register your models here.
 
-@admin.register(Folder)
-class FolderAdmin(admin.ModelAdmin):
-    pass
-
-@admin.register(File)
-class FileAdmin(admin.ModelAdmin):
+@admin.register(NormalUser)
+class UserAdmin(admin.ModelAdmin):
     pass

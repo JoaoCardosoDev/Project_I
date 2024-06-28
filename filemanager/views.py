@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import Http404, HttpResponseRedirect
 from django.urls import reverse
@@ -8,6 +9,7 @@ from django.http import FileResponse
 from django.core.files.storage import FileSystemStorage
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.contrib import messages
+from django.db.models import F
 # Create your views here.
 
 def root(request):
@@ -23,6 +25,8 @@ def home(request):
     breadcrumb = "Workspace"
     folder_form = FolderForm()
     file_form = FileForm()
+    folders = Folder.objects.filter(user=request.user, parent = None)
+    files = File.objects.filter(user=request.user)
 
     if request.method == 'POST':
         if 'create_folder' in request.POST:
@@ -36,10 +40,10 @@ def home(request):
         if 'create_file' in request.POST:
 
             file_obj = request.FILES['storage']
-            
+            print(request.user.max_quota)
+            print(request.user.quota_counter)
             if file_obj.size < (request.user.max_quota - request.user.quota_counter):
 
-                # messages.error(request, "File size exceeds 1MB")
                 folder_form = FolderForm()
                 file_form = FileForm()
             else:
@@ -48,7 +52,8 @@ def home(request):
                     file = form.save(commit=False)  
                     file.user = request.user  
                     file.save()
-                    request.user.quota_counter += file_obj.size
+                    print(file_obj.size)
+                    request.user.quota_counter = F('quota_counter') + file_obj.size
                     request.user.save()
                     return HttpResponseRedirect(reverse('home'))
                 else:
@@ -67,11 +72,16 @@ def home(request):
             folder_form = FolderForm()
             file_form = FileForm()
     
-    folders = Folder.objects.filter(user=request.user, parent = None)
-    files = File.objects.filter(user=request.user)
+
     favfolders = Folder.objects.filter(user=request.user, favorite=True)
-    lastmod = Base.objects.filter(user=request.user).order_by('-lastmodified')
+    lastmod = Folder.objects.filter(user=request.user).order_by('-lastmodified')
+    quota_mb = request.user.quota_counter / (1024 * 1024)
+    date = datetime.now()
+    max_quota = request.user.max_quota
+    quota_perc = quota_mb / request.user.max_quota
     quota_mb = format(request.user.quota_counter / (1024 * 1024), '.2f')
+    max_quota = format(request.user.max_quota / (1024 * 1024), '.0f')
+    email = request.user.email
 
     context = {
         'form': folder_form,
@@ -81,7 +91,11 @@ def home(request):
         'favfolders': favfolders,
         'Lastmod': lastmod,
         'breadcrumb': breadcrumb,
-        'quota': quota_mb
+        'quota': quota_mb,
+        'max_quota': max_quota,
+        'quota_perc': quota_perc,
+        'date': date,
+        'email': email
     }
     return render(request, 'filemanager/home.html', context)
 
@@ -89,9 +103,11 @@ def home(request):
 @login_required(login_url="/login")
 def deleteInstance(request, id=None):
     instance = get_object_or_404(Base, pk=id)
+    user = request.user
     if request.user == instance.user:
-        request.user.quota_counter -= instance.file.size
-        request.user.save()
+        if isinstance(instance, File):
+            user.quotacounter = user.quota_counter - instance.file.size
+            request.user.save()
         instance.delete()
     return HttpResponseRedirect(reverse('home'))
 
@@ -152,6 +168,15 @@ def folderView(request, id=None):
         return breadcrumb[::-1]
     
     breadcrumb = get_breadcrumb(request, folder)
+    quota_mb = request.user.quota_counter / (1024 * 1024)
+    date = datetime.now()
+    max_quota = request.user.max_quota
+    quota_perc = quota_mb / request.user.max_quota
+    quota_mb = format(request.user.quota_counter / (1024 * 1024), '.2f')
+    max_quota = format(request.user.max_quota / (1024 * 1024), '.0f')
+    email = request.user.email
+    lastmod = Folder.objects.filter(user=request.user).order_by('-lastmodified')
+
 
     context = {
         'form': folder_form,
@@ -159,7 +184,14 @@ def folderView(request, id=None):
         'folders': folderChildren,
         'files': files,
         'favfolders': favfolders,
-        'breadcrumb': breadcrumb
+        'breadcrumb': breadcrumb,
+        'quota': quota_mb,
+        'max_quota': max_quota,
+        'quota_perc': quota_perc,
+        'date': date,
+        'email': email,
+        'Lastmod': lastmod,
+
     }
 
     return render(request, 'filemanager/home.html', context)

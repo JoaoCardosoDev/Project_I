@@ -1,0 +1,276 @@
+body {
+    display: flex;
+    background-color: black;
+    background-image: none;
+}
+
+svg {
+    fill: white;
+    height: 32px;
+    width: 32px;
+}
+
+button {
+    background-color: var(--color-primary);
+    text-align: center;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 8px 0px;
+    font-size: 16px;
+    padding: 16px 8px;
+    height: 40px;
+}
+
+button svg {
+    margin-right: 8px;
+}
+
+button p {
+    flex: 1;
+    text-align: center;
+}
+
+.backgroundGrad {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 40dvh;
+    background: rgb(1,20,100);
+    background: linear-gradient(113deg, rgba(1,20,100,1) 10%, rgba(244,91,4,1) 40%, rgba(0,212,255,1) 100%);
+    
+}
+
+.sideNav {
+    display: flex;
+    flex-direction: column;
+    background-color: #1D1D1D;
+    width: 10dvw;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 32px;
+    padding-bottom: 32px;
+}
+
+.sideNav option, .sideNav select {
+    color: black;
+}
+.sideNav img {
+    width: 96px;
+}
+.home button {
+    flex-grow: 1;
+}
+
+
+
+.drive {
+    width: 80px;
+    height: 80px;
+}
+
+.createFolderCard .createFolder{
+    display: none;
+    position: absolute;
+    background-color: #373535;
+    border: none;
+}
+
+.createFolderCard .createFolder form, .createFolderCard .createFolder label{
+    color: white;
+    gap: 8px;
+}
+.createFolderCard:hover .createFolder{
+    display: block;
+    position: absolute;
+}
+
+.createFolderCard .createFolder button {
+    color: white;
+    font-style: bolder;
+    justify-content: center;
+}
+
+.createFileCard .createFile{
+    display: none;
+    position: absolute;
+    background-color: #373535;
+    border: none;
+    border-radius: 8px;
+}
+
+.createFileCard .createFile form, .createFileCard .createFile label{
+    color: white;
+    gap: 8px;
+}
+.createFileCard:hover .createFile{
+    display: block;
+    position: absolute;
+}
+
+.createFileCard .createFile button {
+    color: white;
+    font-style: bolder;
+    justify-content: center;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.navTop {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 16px;
+}
+
+.searchCard {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 33%;
+}
+.searchCard form {
+    width: 100%;
+}
+.searchCard form input {
+    border-radius: 16px;
+    height: 32px;
+    width: 100%;
+}
+
+.date {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.userCard {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+
+
+
+
+.windowWrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+.workspaceBar {
+    background-color: #373535;
+    position: relative;
+    top: -16px;
+    padding: 8px;
+    width: calc(100% + 32px);
+    left: -16px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+.workspace {
+    background-color: #1D1D1D;
+    margin: 32px;
+    margin-right: 0;
+    padding: 16px;
+    flex-grow: 1;
+    border-radius: 8px;
+}
+
+.cardWrapper {
+    display: flex;
+    flex-wrap: wrap;
+}
+.folderCard, .fileCard {
+    display: flex;
+    flex-direction: column;
+    margin: 16px;
+    width: 128px;
+    background-color: #373535;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    padding: 8px;
+  }
+
+.folderCard p, .fileCard p {
+    color: grey;
+    margin-top: 8px;
+    font-size: 12px;
+}
+.folderCard svg, .fileCard svg {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 8px;
+}
+
+.folderCard span, .fileCard span {
+    display: flex;
+    flex-direction: row;
+    margin-top: 8px;
+}
+
+.folderCard span svg, .fileCard span svg {
+    width: 20px;
+    height: 20px;
+}
+.folderCard span a, .fileCard span a{
+    margin: 0 8px;
+}
+
+.util {
+    background-color: #373535;
+    border-radius: 8px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 32px;
+    border-radius: 8px;
+}
+
+.util h1 {
+    color: white;
+
+}
+
+.favCard {
+    gap: 8px;
+    margin-bottom: 32px;
+}
+
+.quota {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+}
+.bar {
+    background-color: #1D1D1D;
+    height: 32px;
+    width: 100%;
+    border-radius: 8px;
+}
+
+.barBackground {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.barColor {
+    position: relative;
+    background-color: var(--color-primary);
+    width: 75%;
+    height: 100%;
+    border-radius: 8px;
+}
+

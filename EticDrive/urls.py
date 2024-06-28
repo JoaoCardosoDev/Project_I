@@ -25,7 +25,7 @@ urlpatterns = [
     path("admin/", admin.site.urls, name='admin'),
     path("", include("filemanager.urls")),
     path("login/", Login, name="login"),
-    path('logout/', LogOut, name="logout"),
+    path('logout/', LogOut, name="logoutcustom"),
     path('signup/', SignupView.as_view(), name='signup'),
     path("accounts/", include("django.contrib.auth.urls"))
 ]

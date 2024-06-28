@@ -32,9 +32,9 @@ class File(Base):
         file_name, file_extension = os.path.splitext(file_obj.name)
         file_type, _ = mimetypes.guess_type(file_obj.name)
         if file_type:
-            file_type = file_type.split('/')[-1]  # get the file type (e.g. 'pdf', 'jpg', etc.)
+            file_type = file_type.split('/')[-1]
         else:
-            file_type = ''  # default to empty string if file type cannot be guessed
+            file_type = ''
 
         self.storage.name = f"{self.title}.{file_type}"
         super().save(*args, **kwargs)

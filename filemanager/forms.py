@@ -16,3 +16,4 @@ class FileForm(forms.ModelForm):
 class SearchForm(forms.ModelForm):
     model=Base
     search = forms.BooleanField(widget=forms.HiddenInput, initial=True)
+    

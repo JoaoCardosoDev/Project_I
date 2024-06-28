@@ -174,37 +174,7 @@ button {
 }
 
 /* WORKSPACE */
-.workdspaceCard {
-    background-color: #FFE0CF;
-    width: 90%;
-    height: 60%;
-    margin: 32px;
-    align-content: center;
-}
-.workdspaceCard p {
-    color: var(--color-text-secondary);
-}
-.workdspaceCard a {
-    color: var(--color-text-secondary);
-}
-.workdspaceCard span {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-}
 
-.folderWrapper {
-    background-color: #FFFFFF;
-    width: 90%;
-    height: 88%;
-    margin: 16px;
-}
-
-.folderWrapper li{
-    color: var(--color-text-secondary);
-    list-style-type: none;
-    margin: 4px;
-}
 
 /* OVERLAY */
 
@@ -213,61 +183,4 @@ button {
     display: none;
     inset: 0;
     background-color: #00000096;
-}
-
-.createFolder {
-    display: none;
-    flex-direction: column;
-    background-color: #FFFFFF;
-    border: var(--color-primary);
-    border-style: solid;
-    border-width: 3px;
-    border-radius: 8px;
-    max-width: 40%;
-    align-self: center;
-    align-items: center;
-    padding: 8px;
-    justify-content: center;
-    margin: auto;
-    gap: 4px;
-}
-
-.createFolder Form {
-    padding: 8px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.createFolder Button, Label, input {
-    color: var(--color-text-secondary);
-    margin: 4px;
-}
-
-
-.fileCreatecard {
-    display: none;
-    flex-direction: column;
-    background-color: #FFFFFF;
-    border: var(--color-primary);
-    border-style: solid;
-    border-width: 3px;
-    border-radius: 8px;
-    max-width: 45%;
-    align-self: center;
-    align-items: center;
-    padding: 8px;
-    justify-content: center;
-    margin: auto;
-    gap: 4px;
-}
-.fileCreatecard Form {
-    padding: 8px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-.fileCreatecard Button, Label {
-    color: var(--color-text-secondary);
-    margin: 4px;
 }
