@@ -42,8 +42,8 @@ def home(request):
             file_obj = request.FILES['storage']
             print(request.user.max_quota)
             print(request.user.quota_counter)
-            if file_obj.size < (request.user.max_quota - request.user.quota_counter):
-
+            if file_obj.size > (request.user.max_quota - request.user.quota_counter):
+                print("Too big------")
                 folder_form = FolderForm()
                 file_form = FileForm()
             else:
@@ -53,8 +53,10 @@ def home(request):
                     file.user = request.user  
                     file.save()
                     print(file_obj.size)
-                    request.user.quota_counter = F('quota_counter') + file_obj.size
-                    request.user.save()
+
+                    new_quota = request.user.quota_counter + file_obj.size
+                    print(new_quota)
+                    request.user.update_quota(new_quota)
                     return HttpResponseRedirect(reverse('home'))
                 else:
                     folder_form = FolderForm()

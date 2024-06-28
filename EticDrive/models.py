@@ -12,3 +12,8 @@ class NormalUser(AbstractUser):
         return self.max_quota
     def get_email(self):
         return self.email
+    
+    def update_quota(self, new_quota):
+        self.quota_counter = new_quota
+        self.save(update_fields=['quota_counter'])
+    
