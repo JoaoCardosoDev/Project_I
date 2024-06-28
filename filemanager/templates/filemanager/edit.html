@@ -1,26 +1,24 @@
 {% extends "filemanager/base.html" %}
 
+{% load static %}
+
 {% block 'content' %}
+<link rel="stylesheet" href="{% static 'filemanager/home.css' %}">
+<div class="backgroundGrad">
+  <div class="blurryBottom"></div>
+</div>
 
-<h1>EDITING</h1>
 
-<div class="folder-createcard">
-    <h1></h1>
+<div class="editCard">
+
     <form method="post">
         {% csrf_token %}
         {{ form }}
-        <input type="submit" value="Submit">
+        <button type="submit" value="Submit">Submit</button>
       </form>
+      <button class="back" onclick="location.href='/home'">Go back</button>
 </div>
-<!-- <hr>
-<div class="file-createcard">
-    <h1>File</h1>
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ file_form }}
-        <button type="submit">Upload</button>
-      </form>
-</div> -->
+
 
 
 {% endblock %}
